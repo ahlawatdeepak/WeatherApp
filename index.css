@@ -46,6 +46,17 @@
         background-color: blueviolet;
         
     }
+    #container2{
+        /* border: 1px solid red; */
+        margin:auto;
+        /* height: 200px; */
+        width: 100px;
+        padding: 20px;
+        background-color: aquamarine;
+        box-shadow: 0px 0px 1px 1px skyblue;
+        margin-bottom: 20px;
+       
+    }
     #container{
         /* border: 1px solid red; */
         margin:auto;
@@ -62,6 +73,10 @@
        
 
     } */
+    #img12{
+        width: 40%;
+       
+    }
     #img1{
         width: 40%;
        

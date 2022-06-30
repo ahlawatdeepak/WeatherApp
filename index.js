@@ -68,3 +68,70 @@ async function getdata(){
     // let iframe=document.getElementById("gmap_canvas")
     // iframe.src=`https://maps.google.com/maps?q=${data.name}&t=&z=13&ie=UTF8&iwloc=&output=embed`
 }
+
+
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<for current location>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+function getLocation() {
+    navigator.geolocation.getCurrentPosition(success);
+  
+    function success(pos) {
+      const crd = pos.coords;
+  
+      console.log("Your current position is:");
+      console.log(`Latitude : ${crd.latitude}`);
+      console.log(`Longitude: ${crd.longitude}`);
+      console.log(`More or less ${crd.accuracy} meters.`);
+      getWeatherOnLocation(crd.latitude, crd.longitude);
+    }
+  }
+  getLocation()
+  
+  function getWeatherOnLocation(lat, lon) {
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=8e22c3dbb69919aab27701d1402d1d15`;
+  
+    fetch(url)
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (res) {
+        //console.log(res);
+        mylocation(res)
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
+  }
+
+
+
+  function mylocation(mydata){
+    console.log(mydata)
+   
+        let cont2=document.createElement("div")
+        cont2.setAttribute("id","container2")
+
+         let h3=document.createElement("h3")
+         h3.textContent=mydata.name
+
+         let imgdiv=document.createElement("div")
+         imgdiv.setAttribute("id","imgdiv2")
+         let img=document.createElement("img")
+         img.setAttribute("id","img12")
+         img.src="https://cdn5.vectorstock.com/i/1000x1000/05/29/thermometer-icon-or-temperature-symbol-vector-23880529.jpg"
+        imgdiv.append(img)
+
+
+         let p11=document.createElement("p")
+         p11.textContent=`Current temp: ${Math.floor(mydata.main.temp-273)}`;
+
+         let p22=document.createElement("p")
+         p22.textContent=`Max temp: ${Math.floor(mydata.main.temp_max-273)}`;
+
+         let p33=document.createElement("p")
+         p33.textContent=`Min temp: ${Math.floor(mydata.main.temp_min-273)}`;
+
+         cont2.append(h3,imgdiv,p11,p22,p33);
+         document.getElementById("livelocation").append(cont2)
+
+  }
